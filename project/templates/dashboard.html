@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Panda Food</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="icon" type="image/png" href="{{ url_for('static',    filename='assets/logo.jpg') }}" />
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static',    filename='css/styles.css') }}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" style="font-weight: bold;" href="{{ url_for('pages.index') }}"><img class="img-profile" src="{{ url_for('static',    filename='assets/ippai_food_logo.svg') }}" width="50" height="50">Panda Food</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cardapio</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">Todos</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Comidas</a></li>
+                                <li><a class="dropdown-item" href="#!">Bebidas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('pages.contact') }}">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link"><span style="color: #00ff00;">◉</span>Aberto</a></li>
+                        
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
+                        </li> -->
+                    </ul>
+                    {% if cookie == None %}
+                        <li class="btn btn-menu-light nav-item dropdown">
+                            <a class="nav-login dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i> Login</a>
+                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+                                <form action="{{ url_for('admin.auth') }}" method="POST" class="form-horizontal" accept-charset="UTF-8">
+                                    <input class="form-control login" type="text" name="email" placeholder="email.."><br>
+                                    <input class="form-control login" type="password" name="password" placeholder="Password.."><br>
+                                    <input class="btn btn-primary" type="submit" name="submit" value="Login">
+                                    <p></p>
+                                    <a href="{{ url_for('pages.singup') }}" class="text-dark">Create One</a>
+                                </form>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="usermenu btn btn-menu-light nav-item dropdown">
+                            <a class="nav-login dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-cart-fill me-1"></i> Cart<span class="badge bg-dark text-white ms-1 rounded-pill">R$0</span></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            </ul>
+                        </li>
+                        <p>  </p>
+                        <li class="usermenu btn btn-menu-light nav-item dropdown">
+                            <a class="nav-login dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!"><i class="bi bi-card-list"></i> Pedidos</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('pages.dashboard') }}"><i class="bi bi-gear-fill"></i> Configuração</a></li>
+                                <li><a class="dropdown-item" href="#!"><i class="bi bi-bar-chart-fill"></i> Admin</a></li>
+                                <li><a class="dropdown-item" href="#!"><i class="bi bi-door-open-fill"></i> Sair</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="fundotitle py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-red">
+                    <!-- <h1 class="display-4 fw-bolder">Panda Food</h1> -->
+                    <img class="img-profile" src="{{ url_for('static',    filename='assets/ippai_food.svg') }}" width="150" height="150">
+                </div>
+            </div>
+        </header>
+        <section class="py-5">
+        </section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>Perfil</h4>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="{{ url_for('admin.update_user') }}" method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                                    <div class="form-group row">
+                                        <label for="username" class="col-4 col-form-label">Nome completo</label> 
+                                        <div class="col-8">
+                                        <input id="username" name="username" placeholder="{% if data != None %}{{data['name']}}{% else %}Nome{% endif %}" class="form-control here" required="required" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="street" class="col-4 col-form-label">Endereço</label> 
+                                        <div class="col-8">
+                                        <input id="street" name="street" placeholder="{% if data['street']!= None %}{{data['street']}}{% else %}Endereço{% endif %}" class="form-control here" required="required" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-4 col-form-label">Email*</label> 
+                                        <div class="col-8">
+                                        <input id="email" name="email" placeholder="{% if data['email']!= None %}{{data['email']}}{% else %}Email{% endif %}" class="form-control here" required="required" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="website" class="col-4 col-form-label">Telefone</label> 
+                                        <div class="col-8">
+                                        <input id="website" name="website" placeholder="{% if data['phone']!= None %}{{data['phone']}}{% else %}Telefone{% endif %}" class="form-control here" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="website" class="col-4 col-form-label">CPF</label> 
+                                        <div class="col-8">
+                                        <input id="website" name="website" placeholder="{% if data['cpf']!= None %}{{data['cpf']}}{% else %}CPF{% endif %}" class="form-control here" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="newpass" class="col-4 col-form-label">Senha</label> 
+                                        <div class="col-8">
+                                        <input id="newpass" name="newpass" placeholder="Senha" class="form-control here" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="newpass" class="col-4 col-form-label">Nova Senha</label> 
+                                        <div class="col-8">
+                                        <input id="newpass" name="newpass" placeholder="Nova Senha" class="form-control here" type="text">
+                                        </div>
+                                    </div> 
+                                    <div class="form-group row">
+                                        <div class="offset-4 col-8">
+                                        <button name="submit" type="submit" class="btn btn-primary">Atualizar</button>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="py-5">
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-yellow">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Panda Food 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    </body>
+</html>
