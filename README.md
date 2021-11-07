@@ -26,13 +26,16 @@
 Endpoint           Methods    Rule
 -----------------  ---------  -----------------------
 admin.auth         POST       /auth
-admin.get_product  GET        /product/<name>
+admin.cart         GET        /cart/<item>
+admin.logout       GET        /logout/
 admin.register     POST       /register
 admin.static       GET        /static/<path:filename>
+admin.update_user  POST       /update_user
 pages.admin        GET        /admin
 pages.contact      GET        /contact
 pages.dashboard    GET        /dashboard
 pages.forgot       GET        /forgot
+pages.get_product  GET        /product/<name>
 pages.index        GET, POST  /
 pages.login        GET        /login
 pages.pedidos      GET        /pedidos
