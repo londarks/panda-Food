@@ -116,38 +116,38 @@ class Productions(db.Model):
     name = db.Column(
         db.Text,
         index=False,
-        unique=True,
+        unique=False,
         nullable=False
     )
     description = db.Column(
         db.Text,
-        index=False,
-        unique=True,
-        nullable=False
+        index=True,
+        unique=False,
+        nullable=True
     )
     create = db.Column(
         db.DateTime,
-        index=False,
-        unique=False,
-        nullable=False
+        index=True,
+        unique=True,
+        nullable=True
     )
     cash = db.Column(
         db.Float,
         index=True,
-        unique=True,
+        unique=False,
         nullable=False
     )
     category = db.Column(
         db.Text,
         index=False,
-        unique=True,
+        unique=False,
         nullable=False
     )
     image = db.Column(
         db.Text,
-        index=False,
+        index=True,
         unique=True,
-        nullable=False
+        nullable=True
     )
 
 

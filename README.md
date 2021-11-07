@@ -7,7 +7,7 @@
 1. Token expired
 2. Page admin (functions)
 3. Create function to add new products
-4. Add and send orders to the order area
+4. Add and send orders to the order area ✔️
 5. Reload token for update user info ✔️
 6. Sing up user ✔️
 7. Sing in User ✔️

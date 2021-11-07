@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 50cde991cfd4
+Revision ID: f5a31a7498f4
 Revises: 
-Create Date: 2021-11-05 16:14:04.981017
+Create Date: 2021-11-07 18:51:52.147697
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '50cde991cfd4'
+revision = 'f5a31a7498f4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,18 +27,17 @@ def upgrade():
     op.create_table('productions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.Text(), nullable=False),
-    sa.Column('description', sa.Text(), nullable=False),
-    sa.Column('create', sa.DateTime(), nullable=False),
+    sa.Column('description', sa.Text(), nullable=True),
+    sa.Column('create', sa.DateTime(), nullable=True),
     sa.Column('cash', sa.Float(), nullable=False),
     sa.Column('category', sa.Text(), nullable=False),
-    sa.Column('image', sa.Text(), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('category'),
-    sa.UniqueConstraint('description'),
-    sa.UniqueConstraint('image'),
-    sa.UniqueConstraint('name')
+    sa.Column('image', sa.Text(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_productions_cash'), 'productions', ['cash'], unique=True)
+    op.create_index(op.f('ix_productions_cash'), 'productions', ['cash'], unique=False)
+    op.create_index(op.f('ix_productions_create'), 'productions', ['create'], unique=True)
+    op.create_index(op.f('ix_productions_description'), 'productions', ['description'], unique=False)
+    op.create_index(op.f('ix_productions_image'), 'productions', ['image'], unique=True)
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=64), nullable=False),
@@ -85,6 +84,9 @@ def downgrade():
     op.drop_index(op.f('ix_user_email'), table_name='user')
     op.drop_index(op.f('ix_user_cpf'), table_name='user')
     op.drop_table('user')
+    op.drop_index(op.f('ix_productions_image'), table_name='productions')
+    op.drop_index(op.f('ix_productions_description'), table_name='productions')
+    op.drop_index(op.f('ix_productions_create'), table_name='productions')
     op.drop_index(op.f('ix_productions_cash'), table_name='productions')
     op.drop_table('productions')
     op.drop_table('category')

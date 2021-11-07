@@ -13,6 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static',    filename='css/styles.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static',    filename='css/cart.css') }}" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
@@ -27,22 +28,15 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">Todos</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Comidas</a></li>
-                                <li><a class="dropdown-item" href="#!">Bebidas</a></li>
+                                <li><a class="dropdown-item" href="/product/Tipicas Brasileiras">Tipicas Brasileira</a></li>
+                                <li><a class="dropdown-item" href="/product/asiaticos">Asiaticos</a></li>
+                                <li><a class="dropdown-item" href="/product/sobremesas">Sobremesas</a></li>
+                                <li><a class="dropdown-item" href="/product/bebidas">Bebidas</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('pages.contact') }}">Contato</a></li>
                         <li class="nav-item"><a class="nav-link"><span style="color: #00ff00;">◉</span>Aberto</a></li>
                         
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li> -->
                     </ul>
                     {% if cookie == None %}
                         <li class="btn btn-menu-light nav-item dropdown">
@@ -59,8 +53,29 @@
                         </li>
                     {% else %}
                         <li class="usermenu btn btn-menu-light nav-item dropdown">
-                            <a class="nav-login dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-cart-fill me-1"></i> Cart<span class="badge bg-dark text-white ms-1 rounded-pill">R$0</span></i></a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-login dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-cart-fill me-1"></i> Carrinho <span class="badge bg-dark text-white ms-1 rounded-pill">R${% if total != None %}{{total}}{% else %}0{% endif %}</span></i></a>
+                            <ul class="dropdown-menu dropdown-cart" role="menu">
+                                {% if cart != None %}
+                                    {%for a in range(cart|length) %}
+                                        <li>
+                                            <span class="item">
+                                            <span class="item-left">
+                                                <img src="{{ url_for('static',    filename='assets')}}/{{cart[a]['image']}}" width="50" height="50" alt="..."/>
+                                                <span class="item-info">
+                                                    <span>{{cart[a]['name']}}{% if cart[a]['amount'] >=2 %}(x{{cart[a]['amount']}}){% else %}{% endif %}</span>
+                                                    <span>R$ {{cart[a]['cash']}}</span>
+                                                </span>
+                                            </span>
+                                            <span class="item-right">
+                                                <button class="btn btn-xs btn-danger pull-right">x</button>
+                                            </span>
+                                        </span>
+                                        </li>
+                                    {%endfor%}
+                                <li><hr class="dropdown-divider" /></li>
+                                <div class="text-center"><button type="button" class="btn btn-danger">View Cart</button></div>
+                                {% else %}
+                                {% endif %}
                             </ul>
                         </li>
                         <p>  </p>
@@ -70,7 +85,7 @@
                                 <li><a class="dropdown-item" href="#!"><i class="bi bi-card-list"></i> Pedidos</a></li>
                                 <li><a class="dropdown-item" href="{{url_for('pages.dashboard') }}"><i class="bi bi-gear-fill"></i> Configuração</a></li>
                                 <li><a class="dropdown-item" href="#!"><i class="bi bi-bar-chart-fill"></i> Admin</a></li>
-                                <li><a class="dropdown-item" href="#!"><i class="bi bi-door-open-fill"></i> Sair</a></li>
+                                <li><a class="dropdown-item" href="{{url_for('admin.logout') }}"><i class="bi bi-door-open-fill"></i> Sair</a></li>
                             </ul>
                         </li>
                     {% endif %}
@@ -195,7 +210,7 @@
                                 <div class="col mb-5">
                                     <div class="card h-100">
                                         <!-- Product image-->
-                                        <img class="card-img-top" src="{{ url_for('static',    filename='assets')}}/{{items[a]['image']}}"alt="..."/>
+                                        <img class="card-img-top" src="{{ url_for('static',    filename='assets')}}/{{items[a]['image']}}" width="430" alt="..."/>
                                         <!-- Product details-->
                                         <div class="card-body p-4">
                                             <div class="text-center">
@@ -206,7 +221,7 @@
                                         </div>
                                         <!-- Product actions-->
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">R$ {{items[a]['cash']}}</a></div>
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/{{items[a]['id']}}">R$ {{items[a]['cash']}}</a></div>
                                         </div>
                                     </div>
                                 </div>
