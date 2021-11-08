@@ -110,8 +110,23 @@ def update_user():
         flash('alert alert-danger')
         return redirect(url_for("admin.dashboard"))
 
+@admin.route("/cart_remove/<item>", methods=['GET'])
+def cart_remove(item):
+    #remove item for cart
+    shop = []
+    decode = jwt.decode(str(request.cookies.get('WC_a')),key=app.config['SECRET_KEY'], algorithms=['HS256', ])
+    decode['ids'].pop(int(item))
+    for id in decode['ids']:
+        shop.append(id)
+    print(shop)
+    payload = {
+        "ids": shop
+    }
+    token = jwt.encode(payload,app.config['SECRET_KEY'],algorithm="HS256")
+    res = flask.make_response(redirect('/'))
+    res.set_cookie("WC_a", value=token)
+    return res
 
-#function cart
 @admin.route("/cart/<item>", methods=['GET'])
 def cart(item):
     if cookie() == None:

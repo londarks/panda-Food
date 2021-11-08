@@ -51,8 +51,8 @@
                                 </form>
                             </div>
                         </li>
-                    {% else %}
-                        <li class="usermenu btn btn-menu-light nav-item dropdown">
+                        {% else %}
+                            <li class="usermenu btn btn-menu-light nav-item dropdown">
                             <a class="nav-login dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-cart-fill me-1"></i> Carrinho <span class="badge bg-dark text-white ms-1 rounded-pill">R${% if total != None %}{{total}}{% else %}0{% endif %}</span></i></a>
                             <ul class="dropdown-menu dropdown-cart" role="menu">
                                 {% if cart != None %}
@@ -67,7 +67,7 @@
                                                 </span>
                                             </span>
                                             <span class="item-right">
-                                                <button class="btn btn-xs btn-danger pull-right">x</button>
+                                                <a href="/cart_remove/{{a}}"> <button class="btn btn-xs btn-danger pull-right">x</button> </a>
                                             </span>
                                         </span>
                                         </li>
