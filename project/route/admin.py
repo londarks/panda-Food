@@ -19,7 +19,7 @@ Controller = Controller()
 
 # cookie
 def cookie():
-    login = request.cookies.get('Ippai-session')
+    login = request.cookies.get('panda-session')
     return login
 
 
@@ -37,7 +37,7 @@ def decodeCart():
 @admin.route("/logout/", methods=['GET'])
 def logout():
     res = flask.make_response(redirect('/'))
-    res.delete_cookie("Ippai-session")
+    res.delete_cookie("panda-session")
     return res
 
 @admin.route("/register", methods=['POST'])
@@ -57,6 +57,7 @@ def register():
 @admin.route("/auth", methods=['POST'])
 def auth():
     result = User.query.filter_by(email=request.form['email']).first()
+    print(result.password == Controller._encryption(request.form['password']))
     if result and result.password == Controller._encryption(request.form['password']):
         #payload e-commecer client
         payload = {
@@ -66,7 +67,7 @@ def auth():
         #access_token = create_access_token(payload, expires_delta=timedelta(minutes=120)) 
         #print(access_token)
         res = flask.make_response(redirect('/'))
-        res.set_cookie("Ippai-session", value=token)
+        res.set_cookie("panda-session", value=token)
         return res
     else:
         #alert fail login.
@@ -123,7 +124,7 @@ def cart_remove(item):
         "ids": shop
     }
     token = jwt.encode(payload,app.config['SECRET_KEY'],algorithm="HS256")
-    res = flask.make_response(redirect('/'))
+    res = flask.make_response(redirect(request.referrer))
     res.set_cookie("WC_a", value=token)
     return res
 
@@ -136,8 +137,9 @@ def cart(item):
             payload = {
                 "ids": [item]
             }
+            flash('Item adicionado ao carrinho')
             token = jwt.encode(payload,app.config['SECRET_KEY'],algorithm="HS256")
-            res = flask.make_response(redirect('/'))
+            res = flask.make_response(redirect(request.referrer))
             res.set_cookie("WC_a", value=token)
             return res
         else:
@@ -150,7 +152,8 @@ def cart(item):
             payload = {
                 "ids": shop
             }
+            flash('Item adicionado ao carrinho')
             token = jwt.encode(payload,app.config['SECRET_KEY'],algorithm="HS256")
-            res = flask.make_response(redirect('/'))
+            res = flask.make_response(redirect(request.referrer))
             res.set_cookie("WC_a", value=token)
             return res

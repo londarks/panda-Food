@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  <img src="project/static/assets/ippai_food.svg"  alt="php" width="120">
+  <img src="project/static/assets/panda_food.svg"  alt="php" width="120">
 </h1>
 
 ### 🛠️Under construction 🛠️

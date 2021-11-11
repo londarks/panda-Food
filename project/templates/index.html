@@ -19,7 +19,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" style="font-weight: bold;" href="{{ url_for('pages.index') }}"><img class="img-profile" src="{{ url_for('static',    filename='assets/ippai_food_logo.svg') }}" width="50" height="50">Panda Food</a>
+                <a class="navbar-brand" style="font-weight: bold;" href="{{ url_for('pages.index') }}"><img class="img-profile" src="{{ url_for('static',    filename='assets/panda_food_logo.svg') }}" width="50" height="50">Panda Food</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -107,7 +107,7 @@
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-red">
                     <!-- <h1 class="display-4 fw-bolder">Panda Food</h1> -->
-                    <img class="img-profile" src="{{ url_for('static',    filename='assets/ippai_food.svg') }}" width="150" height="150">
+                    <img class="img-profile" src="{{ url_for('static',    filename='assets/panda_food.svg') }}" width="150" height="150">
                 </div>
             </div>
         </header>
@@ -116,9 +116,17 @@
             <div class="container px-4 px-lg-5 mt-5">
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ messages[0] }}
-                    </div>
+                    {% if messages[0] == 'Item adicionado ao carrinho' %}
+                        <div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ messages[0] }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
                 {% endif %}
                 {% endwith %}
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -221,7 +229,7 @@
                                         </div>
                                         <!-- Product actions-->
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/{{items[a]['id']}}">R$ {{items[a]['cash']}}</a></div>
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/{{items[a]['id']}}"><i class="bi-cart-fill me-1"></i>R$ {{items[a]['cash']}}</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -240,5 +248,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </body>
 </html>

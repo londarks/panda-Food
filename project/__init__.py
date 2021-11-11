@@ -12,7 +12,7 @@ def create_app():
     app.config['SECRET_KEY'] = '0MBuF7775NGx_'
     #app.secret_key = '0MBuF7775NGx_'
     app.config["JWT_SECRET_KEY"] = "0MBuF5NGx_"
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////{}/migrations/ippai.db'.format(_DIR)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////{}/migrations/panda.db'.format(_DIR)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     config_db(app=app)

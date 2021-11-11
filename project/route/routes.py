@@ -18,7 +18,7 @@ pages = Blueprint('pages', __name__,
 
 # cookie
 def cookie():
-    login = request.cookies.get('Ippai-session')
+    login = request.cookies.get('panda-session')
     return login
 
 
